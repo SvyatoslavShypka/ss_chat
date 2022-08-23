@@ -1,2 +1,5 @@
 rootProject.name = 'ss_chat'
+include 'client'
+include 'server'
+include 'share'
 

@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+}
+
+group 'eu.dar3'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compile.extendsFrom testImplementation
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compile project(':share')
+}
+
+
+test {
+    useJUnitPlatform()
+}
+
+task run (type: JavaExec, dependsOn: classes){
+    if(project.hasProperty('arg')){
+        args(arg.split(','))
+    }
+
+    main = "eu.dar3.ss_chat.Server"
+    classpath = sourceSets.main.runtimeClasspath
+    jvmArgs = [
+            "-Dkey=value"
+    ]
+    standardInput = System.in
+}
