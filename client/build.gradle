@@ -1,3 +1,4 @@
+
 plugins {
     id 'java'
     id 'application'
@@ -5,6 +6,7 @@ plugins {
 
 group 'eu.dar3'
 version '1.0-SNAPSHOT'
+mainClassName = 'SimpleClient'
 
 repositories {
     mavenCentral()
@@ -15,13 +17,12 @@ configurations {
 }
 
 dependencies {
+    compile project(':share')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compile project(':share')
 }
 
 test {
     useJUnitPlatform()
 }
 
-mainClassName = 'eu.dar3.ss_chat.SimpleClient'

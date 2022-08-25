@@ -14,9 +14,9 @@ configurations {
 }
 
 dependencies {
+    compile project(':share')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
-    compile project(':share')
 }
 
 
@@ -24,15 +24,14 @@ test {
     useJUnitPlatform()
 }
 
-task run (type: JavaExec, dependsOn: classes){
-    if(project.hasProperty('arg')){
+task run (type: JavaExec, dependsOn: classes) {
+    if (project.hasProperty('arg')) {
         args(arg.split(','))
+        mainClass.set("Server")
+        classpath = sourceSets.main.runtimeClasspath
+        jvmArgs = [
+                "-Dkey=value"
+        ]
+        standardInput = System.in
     }
-
-    main = "eu.dar3.ss_chat.Server"
-    classpath = sourceSets.main.runtimeClasspath
-    jvmArgs = [
-            "-Dkey=value"
-    ]
-    standardInput = System.in
 }
