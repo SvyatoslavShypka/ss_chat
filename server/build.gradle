@@ -14,15 +14,24 @@ configurations {
 }
 
 dependencies {
+    implementation 'junit:junit:4.13.1'
     compile project(':share')
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
 
+/*
 test {
     useJUnitPlatform()
 }
+*/
 
 task run (type: JavaExec, dependsOn: classes) {
     if (project.hasProperty('arg')) {
