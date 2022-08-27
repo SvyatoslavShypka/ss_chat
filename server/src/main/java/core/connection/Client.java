@@ -10,7 +10,8 @@ import java.net.SocketException;
 public class Client implements IClient, Runnable {
 
     private final Socket socket;
-    private final ObjectOutputStream writer;
+//    was private
+    public final ObjectOutputStream writer;
 
     @FunctionalInterface
     public interface ConnectionClosedListener {

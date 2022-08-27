@@ -5,6 +5,7 @@ import cmd.IParameterProvider;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import core.connection.IConnectionManagerFactory;
+import core.dispatcher.ClientDispatcher;
 
 import java.io.IOException;
 
@@ -30,7 +31,8 @@ public class ServerThreadFactory implements IServerThreadFactory{
         final int port = parameters.getInteger(CmdParser.PORT, DEFAULT_SERVER_PORT);
         final int maxClients = parameters.getInteger(CmdParser.CLIENTS, DEFAULT_MAX_CLIENTS);
         final int waitingQueueSize = parameters.getInteger(CmdParser.MAX_WAITING_QUEUE, DEFAULT_WAITING_QUEUE_SIZE);
-
-        return new ServerThread(connectionManagerFactory.getConnectionManager(maxClients, waitingQueueSize), port);
+//added iClientDispatcher with 20 pcs as waitingQueueSize
+        return new ServerThread(connectionManagerFactory.getConnectionManager(new ClientDispatcher(20), maxClients,
+                waitingQueueSize), port);
     }
 }
