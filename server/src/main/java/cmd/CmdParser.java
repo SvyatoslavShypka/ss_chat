@@ -14,9 +14,13 @@ public class CmdParser implements IParameterProvider {
     public CmdParser(String[] args) {
         for (String arg : args) {
             arg = arg.replace("-", "");
+            String[] section = arg.split(",");
+            for (String sec : section) {
             String[] raw = arg.split("=");
             map.put(raw[0], raw[1]);
+            }
         }
+        System.out.println(map);
     }
 
     @Override
