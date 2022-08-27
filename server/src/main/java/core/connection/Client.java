@@ -1,5 +1,7 @@
 package core.connection;
 
+import core.writer.IWriterThread;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,6 +15,8 @@ public class Client implements IClient, Runnable {
 //    was private
     public final ObjectOutputStream writer;
 
+    private final IWriterThread writerThread;
+
     @FunctionalInterface
     public interface ConnectionClosedListener {
         void onConnectionClosed();
@@ -25,9 +29,11 @@ public class Client implements IClient, Runnable {
     }
 
 
-    Client(Socket socket) throws IOException {
+    Client(Socket socket, IWriterThread writerThread) throws IOException {
         this.socket = socket;
+        // TODO ?let the kind reader to create a Client class instance on an incoming connection
         writer = new ObjectOutputStream(socket.getOutputStream());
+        this.writerThread = writerThread;
     }
 
     @Override

@@ -2,6 +2,7 @@ package core.connection;
 
 import com.google.inject.Inject;
 import core.dispatcher.IClientDispatcher;
+import core.writer.IWriterThread;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -22,10 +23,15 @@ public class ConnectionManager implements IConnectionManager {
 //    a constant representing the maximum number of actively communicating clients
     final int maxClients;
 
+    private final IWriterThread writerThread;
+
 //    The constructor
+//    Inject disappeared?
     @Inject
-    public ConnectionManager(IClientDispatcher clientDispatcher, ExecutorService pool, int maxClients) {
+    public ConnectionManager(IClientDispatcher clientDispatcher, IWriterThread writerThread,
+                             ExecutorService pool, int maxClients) {
         this.clientDispatcher = clientDispatcher;
+        this.writerThread = writerThread;
         this.pool = pool;
         this.maxClients = maxClients;
     }
